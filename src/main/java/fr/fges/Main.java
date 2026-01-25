@@ -30,9 +30,10 @@ public class Main {
 
     // Méthode pour exécuter la boucle principale - facilite les tests (peut être arrêtée)
     private static void runApplication() {
-        while (true) {
-            Menu.handleMenu();
-        }
+        // On crée une instance de Menu (car Menu n'est plus static)
+        Menu menu = new Menu();
+        // On lance le menu via l'objet créé
+        menu.handleMenu();
     }
 
     // Méthode principale simplifiée qui orchestre les autres méthodes
