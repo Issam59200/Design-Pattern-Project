@@ -1,12 +1,20 @@
 package fr.fges;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
 
+    // 1. On stocke le scanner en attribut pour ne pas le recréer à chaque fois
+    private final Scanner scanner;
+
+    // 2. Constructeur : on initialise le scanner une seule fois
+    public Menu() {
+        this.scanner = new Scanner(System.in);
+    }
+
+    // 3. Méthode utilitaire interne (plus de static)
     public static String getUserInput(String prompt) {
-        // Scanner is a class in java that helps to read input from various sources like keyboard input, files, etc.
-        Scanner scanner = new Scanner(System.in);
         // No new line for this one
         System.out.printf("%s: ", prompt);
         // Read input for the keyboard
@@ -26,14 +34,22 @@ public class Menu {
         System.out.println(menuText);
     }
 
-    public static void addGame() {
+    public void addGame() {
+        System.out.println("--- Add a new Game ---");
         String title = getUserInput("Title");
-        String minPlayersStr = getUserInput("Minimum Players");
-        String maxPlayersStr = getUserInput("Maximum Players");
-        String category = getUserInput("Category (e.g., fantasy, cooperative, family, strategy)");
 
-        int minPlayers = Integer.parseInt(minPlayersStr);
-        int maxPlayers = Integer.parseInt(maxPlayersStr);
+        // Petit nettoyage : gestion d'erreur simple si l'utilisateur ne rentre pas un nombre
+        int minPlayers = 0;
+        int maxPlayers = 0;
+        try {
+            minPlayers = Integer.parseInt(getUserInput("Minimum Players"));
+            maxPlayers = Integer.parseInt(getUserInput("Maximum Players"));
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Please enter valid numbers for players.");
+            return;
+        }
+
+        String category = getUserInput("Category");
 
         BoardGame game = new BoardGame(title, minPlayers, maxPlayers, category);
 
@@ -41,43 +57,61 @@ public class Menu {
         System.out.println("Board game added successfully.");
     }
 
-    public static void removeGame() {
+    public void removeGame() {
+        System.out.println("--- Remove a Game ---");
         String title = getUserInput("Title of game to remove");
 
-        // get games from the collection, find the one that matches the title given by the user and remove
-        var games = GameCollection.getGames();
+        // Utilisation de getGames() du binôme
+        List<BoardGame> games = GameCollection.getGames();
 
-        for (BoardGame game : games) {
-            if (game.title().equals(title)) {
-                GameCollection.removeGame(game);
+        // Recherche améliorée (plus lisible)
+        BoardGame gameToRemove = games.stream()
+                .filter(g -> g.title().equalsIgnoreCase(title)) // ignoreCase est plus sympa pour l'utilisateur
+                .findFirst()
+                .orElse(null);
+            if (gameToRemove != null) {
+                GameCollection.removeGame(gameToRemove);
                 System.out.println("Board game removed successfully.");
-                return;
+            } else {
+                System.out.println("No board game found with that title.");
+            }
+    }
+
+    public void listAllGames() {
+        System.out.println("--- List of Games ---");
+
+        // IMPORTANT : C'est ici que tu reprends la responsabilité de l'affichage !
+        // Au lieu d'appeler GameCollection.viewAllGames(), tu récupères les données brutes
+        List<BoardGame> sortedGames = GameCollection.getSortedGames();
+
+        if (sortedGames.isEmpty()) {
+            System.out.println("No board games in collection.");
+        } else {
+            for (BoardGame game : sortedGames) {
+                // Tu gères le formatage ici (Vue), laissant GameCollection gérer les données (Modèle)
+                System.out.printf("- %s (%d-%d players) [%s]%n",
+                        game.title(), game.minPlayers(), game.maxPlayers(), game.category());
             }
         }
-        System.out.println("No board game found with that title.");
     }
 
-    public static void listAllGames() {
-        GameCollection.viewAllGames();
-    }
-
-    public static void exit() {
+    public void exit() {
         System.out.println("Exiting the application. Goodbye!");
         System.exit(0);
     }
 
-    public static void handleMenu() {
-        displayMainMenu();
+    public void handleMenu() {
+        while (true) {
+            displayMainMenu();
+            String choice = scanner.nextLine();
 
-        Scanner scanner = new Scanner(System.in);
-        String choice = scanner.nextLine();
-
-        switch (choice) {
-            case "1" -> addGame();
-            case "2" -> removeGame();
-            case "3" -> listAllGames();
-            case "4" -> exit();
-            default -> System.out.println("Invalid choice. Please select a valid option.");
+            switch (choice) {
+                case "1" -> addGame();
+                case "2" -> removeGame();
+                case "3" -> listAllGames();
+                case "4" -> exit();
+                default -> System.out.println("Invalid choice. Please select a valid option.");
+            }
         }
     }
 }
