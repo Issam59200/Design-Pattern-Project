@@ -14,7 +14,7 @@ public class Menu {
     }
 
     // 3. Méthode utilitaire interne (plus de static)
-    public static String getUserInput(String prompt) {
+    public String getUserInput(String prompt) {
         // No new line for this one
         System.out.printf("%s: ", prompt);
         // Read input for the keyboard
