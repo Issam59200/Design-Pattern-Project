@@ -35,31 +35,56 @@ public class GameCollection {
         saveToFile();
     }
 
+    // Méthode pour obtenir les jeux triés
+    public static List<BoardGame> getSortedGames() {
+        return games.stream()
+                .sorted(Comparator.comparing(BoardGame::title))
+                .toList();
+    }
+
+    // Méthode pour formater l'affichage d'un jeu
+    private static String formatGameDisplay(BoardGame game) {
+        return "Game: " + game.title() + " (" + game.minPlayers() + "-" + game.maxPlayers() + " players) - " + game.category();
+    }
+
+    // Méthode simplifiée qui utilise les méthodes ci-dessus
     public static void viewAllGames() {
         if (games.isEmpty()) {
             System.out.println("No board games in collection.");
             return;
         }
 
-        // Sort the games by their title alphabetically
-        List<BoardGame> sortedGames = games.stream()
-                .sorted(Comparator.comparing(BoardGame::title))
-                .toList();
-
+        List<BoardGame> sortedGames = getSortedGames();
         for (BoardGame game : sortedGames) {
-            System.out.println("Game: " + game.title() + " (" + game.minPlayers() + "-" + game.maxPlayers() + " players) - " + game.category());
+            System.out.println(formatGameDisplay(game));
         }
     }
 
+    // Méthode pour détecter le format du fichier
+    private static String getFileFormat(String filename) {
+        if (filename.endsWith(".json")) {
+            return "json";
+        } else if (filename.endsWith(".csv")) {
+            return "csv";
+        }
+        return "unknown";
+    }
+
+    // Méthode pour vérifier si le fichier existe
+    private static boolean fileExists() {
+        return new File(storageFile).exists();
+    }
+
+    // Méthode simplifiée qui utilise les méthodes ci-dessus
     public static void loadFromFile() {
-        File file = new File(storageFile);
-        if (!file.exists()) {
+        if (!fileExists()) {
             return;
         }
 
-        if (storageFile.endsWith(".json")) {
+        String format = getFileFormat(storageFile);
+        if ("json".equals(format)) {
             loadFromJson();
-        } else if (storageFile.endsWith(".csv")) {
+        } else if ("csv".equals(format)) {
             loadFromCsv();
         }
     }
@@ -102,10 +127,12 @@ public class GameCollection {
         }
     }
 
+    // Méthode simplifiée qui utilise getFileFormat() déjà défini
     public static void saveToFile() {
-        if (storageFile.endsWith(".json")) {
+        String format = getFileFormat(storageFile);
+        if ("json".equals(format)) {
             saveToJson();
-        } else if (storageFile.endsWith(".csv")) {
+        } else if ("csv".equals(format)) {
             saveToCsv();
         }
     }
