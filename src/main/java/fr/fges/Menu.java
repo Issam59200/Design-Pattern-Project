@@ -7,13 +7,19 @@ public class Menu {
 
     // 1. On stocke le scanner en attribut pour ne pas le recréer à chaque fois
     private final Scanner scanner;
+    
+    private final GameRepository repository;
+    private final GameStorage storage;
+    private final GameDisplay display;
 
-    // 2. Constructeur : on initialise le scanner une seule fois
-    public Menu() {
-        this.scanner = new Scanner(System.in);
+    public Menu(ApplicationContext context, Scanner scanner) {
+        this.scanner = scanner;
+        this.repository = context.getRepository();
+        this.storage = context.getStorage();
+        this.display = context.getDisplay();
     }
 
-    // 3. Méthode utilitaire interne (plus de static)
+    // Pas de changement ici
     public String getUserInput(String prompt) {
         // No new line for this one
         System.out.printf("%s: ", prompt);
@@ -21,6 +27,7 @@ public class Menu {
         return scanner.nextLine();
     }
 
+    // Pas de changement ici
     public static void displayMainMenu() {
         String menuText = """
                 === Board Game Collection ===
@@ -53,7 +60,10 @@ public class Menu {
 
         BoardGame game = new BoardGame(title, minPlayers, maxPlayers, category);
 
-        GameCollection.addGame(game);
+        repository.addGame(game);
+        
+        storage.saveToFile(repository.getGames());
+        
         System.out.println("Board game added successfully.");
     }
 
@@ -61,28 +71,29 @@ public class Menu {
         System.out.println("--- Remove a Game ---");
         String title = getUserInput("Title of game to remove");
 
-        // Utilisation de getGames() du binôme
-        List<BoardGame> games = GameCollection.getGames();
+        List<BoardGame> games = repository.getGames();
 
         // Recherche améliorée (plus lisible)
         BoardGame gameToRemove = games.stream()
-                .filter(g -> g.title().equalsIgnoreCase(title)) // ignoreCase est plus sympa pour l'utilisateur
+                .filter(g -> g.title().equalsIgnoreCase(title))
                 .findFirst()
                 .orElse(null);
-            if (gameToRemove != null) {
-                GameCollection.removeGame(gameToRemove);
-                System.out.println("Board game removed successfully.");
-            } else {
-                System.out.println("No board game found with that title.");
-            }
+                
+        if (gameToRemove != null) {
+            repository.removeGame(gameToRemove);
+            
+            storage.saveToFile(repository.getGames());
+            
+            System.out.println("Board game removed successfully.");
+        } else {
+            System.out.println("No board game found with that title.");
+        }
     }
 
     public void listAllGames() {
         System.out.println("--- List of Games ---");
 
-        // IMPORTANT : C'est ici que tu reprends la responsabilité de l'affichage !
-        // Au lieu d'appeler GameCollection.viewAllGames(), tu récupères les données brutes
-        List<BoardGame> sortedGames = GameCollection.getSortedGames();
+        List<BoardGame> sortedGames = repository.getSortedGames();
 
         if (sortedGames.isEmpty()) {
             System.out.println("No board games in collection.");
