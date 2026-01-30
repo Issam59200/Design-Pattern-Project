@@ -1,5 +1,8 @@
 package fr.fges;
 
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
     // Méthode pour valider la présence des arguments - facilite les tests
     private static void validateArguments(String[] args) {
@@ -21,18 +24,29 @@ public class Main {
         System.exit(1);
     }
 
-    // Méthode pour initialiser l'application - facilite les tests
-    private static void initializeApplication(String storageFile) {
-        GameCollection.setStorageFile(storageFile);
-        GameCollection.loadFromFile();
+    private static ApplicationContext initializeApplication(String storageFile) {
+        // Créer les instances de nos nouvelles classes
+        GameRepository repository = new GameRepository();
+        GameStorage storage = new GameStorage(storageFile);
+        GameDisplay display = new GameDisplay();
+        
+        // Charger les jeux depuis le fichier
+        List<BoardGame> loadedGames = storage.loadFromFile();
+        
+        // Ajouter les jeux chargés dans le repository
+        for (BoardGame game : loadedGames) {
+            repository.addGame(game);
+        }
+        
         System.out.println("Using storage file: " + storageFile);
+        
+        // Retourner un objet qui contient tout (pour passer au Menu)
+        return new ApplicationContext(repository, storage, display);
     }
 
-    // Méthode pour exécuter la boucle principale - facilite les tests (peut être arrêtée)
-    private static void runApplication() {
-        // On crée une instance de Menu (car Menu n'est plus static)
-        Menu menu = new Menu();
-        // On lance le menu via l'objet créé
+    private static void runApplication(ApplicationContext context) {
+        Scanner scanner = new Scanner(System.in);
+        Menu menu = new Menu(context, scanner);
         menu.handleMenu();
     }
 
@@ -46,7 +60,31 @@ public class Main {
             handleInvalidExtension();
         }
 
-        initializeApplication(storageFile);
-        runApplication();
+        ApplicationContext context = initializeApplication(storageFile);
+        runApplication(context);
+    }
+}
+
+class ApplicationContext {
+    private final GameRepository repository;
+    private final GameStorage storage;
+    private final GameDisplay display;
+    
+    public ApplicationContext(GameRepository repository, GameStorage storage, GameDisplay display) {
+        this.repository = repository;
+        this.storage = storage;
+        this.display = display;
+    }
+    
+    public GameRepository getRepository() {
+        return repository;
+    }
+    
+    public GameStorage getStorage() {
+        return storage;
+    }
+    
+    public GameDisplay getDisplay() {
+        return display;
     }
 }
