@@ -66,7 +66,7 @@ public class Menu {
     }
 
     // Pas de changement ici
-    public static void displayMainMenu() {
+    public void displayMainMenu() {
         System.out.println("=== Board Game Collection ===");
 
         int num = 1;
@@ -81,6 +81,46 @@ public class Menu {
         System.out.println(num++ + ". Recommend Game");
         System.out.println(num++ + ". Exit");
         System.out.println("Please select an option (1-6):");
+    }
+
+    public void handleMenu() {
+        while (true) {
+            displayMainMenu();
+            String input = scanner.nextLine();
+
+            // On sépare la logique selon si c'est le week-end ou non
+            // pour que les numéros correspondent toujours à l'affichage.
+            if (isWeekend()) {
+                handleWeekendMenu(input);
+            } else {
+                handleWeekdayMenu(input);
+            }
+        }
+    }
+
+    // Logique Weekend
+    private void handleWeekendMenu(String choice) {
+        switch (choice) {
+            case "1" -> addGame();
+            case "2" -> removeGame();
+            case "3" -> suggestGames();
+            case "4" -> listAllGames();
+            case "5" -> recommendGame();
+            case "6" -> exit();
+            default -> System.out.println("Invalid choice. Please select a valid option.");
+        }
+    }
+
+    // Logique semaine
+    private void handleWeekdayMenu(String choice) {
+        switch (choice) {
+            case "1" -> addGame();
+            case "2" -> removeGame();
+            case "3" -> listAllGames();
+            case "4" -> recommendGame();
+            case "5" -> exit();
+            default -> System.out.println("Invalid choice. Please select a valid option.");
+        }
     }
 
     public void addGame() {
@@ -182,20 +222,20 @@ public class Menu {
         System.exit(0);
     }
 
-    public void handleMenu() {
-        while (true) {
-            displayMainMenu();
-            String choice = scanner.nextLine();
-
-            switch (choice) {
-                case "1" -> addGame();
-                case "2" -> removeGame();
-                case "3" ->suggestGames();
-                case "4" -> listAllGames();
-                case "5" -> recommendGame();
-                case "6" -> exit();
-                default -> System.out.println("Invalid choice. Please select a valid option.");
-            }
-        }
-    }
+//    public void handleMenu() {
+//        while (true) {
+//            displayMainMenu();
+//            String choice = scanner.nextLine();
+//
+//            switch (choice) {
+//                case "1" -> addGame();
+//                case "2" -> removeGame();
+//                case "3" ->suggestGames();
+//                case "4" -> listAllGames();
+//                case "5" -> recommendGame();
+//                case "6" -> exit();
+//                default -> System.out.println("Invalid choice. Please select a valid option.");
+//            }
+//        }
+//    }
 }
