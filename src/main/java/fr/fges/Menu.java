@@ -11,6 +11,7 @@ public class Menu {
     private final GameRepository repository;
     private final GameStorage storage;
     private final GameDisplay display;
+    private final GameRecommender recommender;
 
     private void suggestGames() {
         System.out.println("Combien de jeux voulez-vous pour votre week-end ?");
@@ -38,6 +39,7 @@ public class Menu {
         this.repository = context.getRepository();
         this.storage = context.getStorage();
         this.display = context.getDisplay();
+        this.recommender = context.getRecommender();
     }
 
     // Pas de changement ici
@@ -56,8 +58,9 @@ public class Menu {
                 2. Remove Board Game
                 3. Suggest a weekend selection
                 4. List All Board Games
-                5. Exit
-                Please select an option (1-5):
+                5. Recommend Game
+                6. Exit
+                Please select an option (1-6):
                 """;
 
         System.out.println(menuText);
@@ -133,6 +136,30 @@ public class Menu {
         }
     }
 
+    public void recommendGame() {
+        System.out.println("--- Recommend a Game ---");
+        
+        int playerCount = 0;
+        try {
+            playerCount = Integer.parseInt(getUserInput("How many players?"));
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Please enter a valid number.");
+            return;
+        }
+
+        BoardGame recommended = recommender.recommendGame(playerCount);
+        
+        if (recommended != null) {
+            System.out.printf("Recommended game: \"%s\" (%d-%d players, %s)%n",
+                    recommended.title(),
+                    recommended.minPlayers(),
+                    recommended.maxPlayers(),
+                    recommended.category());
+        } else {
+            System.out.printf("No games available for %d players.%n", playerCount);
+        }
+    }
+
     public void exit() {
         System.out.println("Exiting the application. Goodbye!");
         System.exit(0);
@@ -148,7 +175,8 @@ public class Menu {
                 case "2" -> removeGame();
                 case "3" ->suggestGames();
                 case "4" -> listAllGames();
-                case "5" -> exit();
+                case "5" -> recommendGame();
+                case "6" -> exit();
                 default -> System.out.println("Invalid choice. Please select a valid option.");
             }
         }

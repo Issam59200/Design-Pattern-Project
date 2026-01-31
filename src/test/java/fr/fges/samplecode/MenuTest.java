@@ -55,10 +55,10 @@ class MenuTest {
         GameRepository repository = new GameRepository();
         GameStorage storage = new GameStorage("test.json");
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
-
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);
 
@@ -88,7 +88,8 @@ class MenuTest {
         GameDisplay display = new GameDisplay();
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
 
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);
@@ -117,10 +118,10 @@ class MenuTest {
 
         GameStorage storage = new GameStorage("test.json");
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
-
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);
 
@@ -144,9 +145,10 @@ class MenuTest {
 
         GameStorage storage = new GameStorage("test.json");
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
 
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);
@@ -166,9 +168,10 @@ class MenuTest {
 
         GameStorage storage = new GameStorage("test.json");
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
 
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);
@@ -188,9 +191,10 @@ class MenuTest {
 
         GameStorage storage = new GameStorage("test.json");
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
 
         // On crée le contexte (le sac à dos de l'application)
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
 
         // On crée le scanner (qui va lire ta simulation "System.in")
         Scanner scanner = new Scanner(System.in);

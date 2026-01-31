@@ -29,6 +29,7 @@ public class Main {
         GameRepository repository = new GameRepository();
         GameStorage storage = new GameStorage(storageFile);
         GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
         
         // Charger les jeux depuis le fichier
         List<BoardGame> loadedGames = storage.loadFromFile();
@@ -41,7 +42,7 @@ public class Main {
         System.out.println("Using storage file: " + storageFile);
         
         // Retourner un objet qui contient tout (pour passer au Menu)
-        return new ApplicationContext(repository, storage, display);
+        return new ApplicationContext(repository, storage, display, recommender);
     }
 
     private static void runApplication(ApplicationContext context) {

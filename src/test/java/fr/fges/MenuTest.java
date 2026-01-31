@@ -53,7 +53,8 @@ class MenuTest {
     void testAddGame() {
         String simulation = "Uno\n2\n10\nCard\n";
         Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
 
         menu.addGame();
@@ -70,7 +71,8 @@ class MenuTest {
     void testAddGameWithInvalidInput() {
         String simulation = "BadInputGame\ndeux\n3\nStrategy\n";
         Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
 
         menu.addGame();
@@ -86,7 +88,8 @@ class MenuTest {
 
         String simulation = "Monopoly\n";
         Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
 
         menu.removeGame();
@@ -102,7 +105,8 @@ class MenuTest {
 
         String simulation = "Trivial Pursuit\n";
         Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
 
         menu.removeGame();
@@ -115,7 +119,8 @@ class MenuTest {
     @Test
     void testListAllGamesEmpty() {
         Scanner testScanner = new Scanner(new ByteArrayInputStream("".getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
         
         menu.listAllGames();
@@ -129,7 +134,8 @@ class MenuTest {
         repository.addGame(new BoardGame("Catan", 3, 4, "Strategy"));
 
         Scanner testScanner = new Scanner(new ByteArrayInputStream("".getBytes()));
-        ApplicationContext context = new ApplicationContext(repository, storage, display);
+        GameRecommender recommender = new GameRecommender(repository);
+        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
         menu = new Menu(context, testScanner);
         
         menu.listAllGames();
