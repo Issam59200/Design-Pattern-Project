@@ -58,4 +58,33 @@ class GameRepositoryTest {
         assertEquals("Monopoly", sortedGames.get(1).title());
         assertEquals("UNO", sortedGames.get(2).title());
     }
+
+    @Test
+    public void testGameExists() {
+        // Arrange
+        GameRepository repository = new GameRepository();
+        BoardGame catan = new BoardGame("Catan", 2, 4, "Stategy");
+        repository.addGame(catan);
+
+        // Act
+        boolean estPresent = repository.exists(catan.title());
+
+        // Assert
+        assertTrue(estPresent);
+    }
+
+    @Test
+    void testGetRandomGames() {
+        // On met 3 jeux dans le repository (Arrange)
+        GameRepository repository = new GameRepository();
+        repository.addGame(new BoardGame("Jeu A", 1, 1, "Cat1"));
+        repository.addGame(new BoardGame("Jeu B", 1, 1, "Cat1"));
+        repository.addGame(new BoardGame("Jeu C", 1, 1, "Cat1"));
+
+        // On en demande 2 au hasard (Act)
+        List<BoardGame> result = repository.getRandomGames(2);
+
+        // Vérification (Assert)
+        assertEquals(2, result.size());
+    }
 }

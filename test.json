@@ -1,1 +1,16 @@
-[ ]
+[ {
+  "title" : "Monopoly",
+  "minPlayers" : 2,
+  "maxPlayers" : 4,
+  "category" : "Strategy"
+}, {
+  "title" : "Uno",
+  "minPlayers" : 2,
+  "maxPlayers" : 6,
+  "category" : "Strategy"
+}, {
+  "title" : "Catan",
+  "minPlayers" : 2,
+  "maxPlayers" : 4,
+  "category" : "Strategy"
+} ]

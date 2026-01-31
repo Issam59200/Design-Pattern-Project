@@ -1,5 +1,6 @@
 package fr.fges.samplecode;
 
+import fr.fges.GameRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +21,8 @@ public class GameCollectionTest {
     @BeforeEach
     public void setUp() {
         // Nettoyer la collection avant chaque test
-        GameCollection.getGames().clear();
+        GameRepository repository = new GameRepository();
+        repository.getGames().clear();
     }
 
     @AfterEach
@@ -28,21 +30,23 @@ public class GameCollectionTest {
         // Supprimer les fichiers de test après chaque test
         new File(TEST_JSON_FILE).delete();
         new File(TEST_CSV_FILE).delete();
-        GameCollection.getGames().clear();
+        GameRepository repository = new GameRepository();
+        repository.getGames().clear();
     }
 
     @Test
     public void testAddGame() {
         // Créer un jeu simple
         BoardGame game = new BoardGame("Monopoly", 2, 6, "Strategy");
-        
+        GameRepository repository = new GameRepository();
+
         // Ajouter le jeu
         GameCollection.setStorageFile(TEST_JSON_FILE);
         GameCollection.addGame(game);
         
         // Vérifier que le jeu est dans la collection
-        assertEquals(1, GameCollection.getGames().size());
-        assertTrue(GameCollection.getGames().contains(game));
+        assertEquals(1, repository.getGames().size());
+        assertTrue(repository.getGames().contains(game));
     }
 
     @Test
@@ -51,12 +55,13 @@ public class GameCollectionTest {
         BoardGame game = new BoardGame("Chess", 2, 2, "Strategy");
         GameCollection.setStorageFile(TEST_JSON_FILE);
         GameCollection.addGame(game);
+        GameRepository repository = new GameRepository();
         
         // Retirer le jeu
         GameCollection.removeGame(game);
         
         // Vérifier que la collection est vide
-        assertEquals(0, GameCollection.getGames().size());
+        assertEquals(0, repository.getGames().size());
     }
 
     @Test
@@ -82,15 +87,16 @@ public class GameCollectionTest {
         GameCollection.setStorageFile(TEST_JSON_FILE);
         GameCollection.addGame(new BoardGame("Risk", 2, 6, "War"));
         GameCollection.addGame(new BoardGame("Scrabble", 2, 4, "Word"));
+        GameRepository repository = new GameRepository();
         
         // Nettoyer la collection en mémoire
-        GameCollection.getGames().clear();
+        repository.getGames().clear();
         
         // Recharger depuis le fichier
         GameCollection.loadFromFile();
         
         // Vérifier que les jeux ont été rechargés
-        assertEquals(2, GameCollection.getGames().size());
+        assertEquals(2, repository.getGames().size());
     }
 
     @Test
@@ -99,27 +105,29 @@ public class GameCollectionTest {
         GameCollection.setStorageFile(TEST_CSV_FILE);
         GameCollection.addGame(new BoardGame("Catan", 3, 4, "Strategy"));
         GameCollection.addGame(new BoardGame("Ticket to Ride", 2, 5, "Family"));
+        GameRepository repository = new GameRepository();
         
         // Nettoyer la collection en mémoire
-        GameCollection.getGames().clear();
+        repository.getGames().clear();
         
         // Recharger depuis le fichier
         GameCollection.loadFromFile();
         
         // Vérifier que les jeux ont été rechargés
-        assertEquals(2, GameCollection.getGames().size());
+        assertEquals(2, repository.getGames().size());
     }
 
     @Test
     public void testLoadFromNonExistentFile() {
         // Configurer un fichier qui n'existe pas
         GameCollection.setStorageFile("fichier-inexistant.json");
+        GameRepository repository = new GameRepository();
         
         // Charger depuis le fichier
         GameCollection.loadFromFile();
         
         // Vérifier que la collection reste vide (pas d'erreur)
-        assertEquals(0, GameCollection.getGames().size());
+        assertEquals(0, repository.getGames().size());
     }
 
     @Test

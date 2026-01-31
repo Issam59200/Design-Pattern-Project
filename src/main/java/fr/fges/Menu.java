@@ -12,6 +12,27 @@ public class Menu {
     private final GameStorage storage;
     private final GameDisplay display;
 
+    private void suggestGames() {
+        System.out.println("Combien de jeux voulez-vous pour votre week-end ?");
+
+        // 1. On récupère le nombre saisi par l'utilisateur
+        try {
+            int count = Integer.parseInt(scanner.nextLine());
+
+            // 2. On demande au repository de nous trouver 'count' jeux au hasard
+            List<BoardGame> selection = repository.getRandomGames(count);
+
+            // 3. On affiche le résultat
+            System.out.println("Voici votre sélection :");
+            for (BoardGame game : selection) {
+                System.out.println(game);
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.println("Merci de saisir un nombre valide.");
+        }
+    }
+
     public Menu(ApplicationContext context, Scanner scanner) {
         this.scanner = scanner;
         this.repository = context.getRepository();
@@ -33,9 +54,10 @@ public class Menu {
                 === Board Game Collection ===
                 1. Add Board Game
                 2. Remove Board Game
-                3. List All Board Games
-                4. Exit
-                Please select an option (1-4):
+                3. Suggest a weekend selection
+                4. List All Board Games
+                5. Exit
+                Please select an option (1-5):
                 """;
 
         System.out.println(menuText);
@@ -44,6 +66,12 @@ public class Menu {
     public void addGame() {
         System.out.println("--- Add a new Game ---");
         String title = getUserInput("Title");
+
+        // On vérifie si le jeu existe avant de l'ajouter
+        if (repository.exists(title)) {
+            System.out.println("Ce jeu existe déjà");
+            return;
+        }
 
         // Petit nettoyage : gestion d'erreur simple si l'utilisateur ne rentre pas un nombre
         int minPlayers = 0;
@@ -99,9 +127,8 @@ public class Menu {
             System.out.println("No board games in collection.");
         } else {
             for (BoardGame game : sortedGames) {
-                // Tu gères le formatage ici (Vue), laissant GameCollection gérer les données (Modèle)
-                System.out.printf("- %s (%d-%d players) [%s]%n",
-                        game.title(), game.minPlayers(), game.maxPlayers(), game.category());
+                // On délègue l'affichage à l'objet 'display' pour respecter le SRP (le Menu ne doit pas savoir comment formater)
+                System.out.println(display.formatGameDisplay(game));
             }
         }
     }
@@ -119,8 +146,9 @@ public class Menu {
             switch (choice) {
                 case "1" -> addGame();
                 case "2" -> removeGame();
-                case "3" -> listAllGames();
-                case "4" -> exit();
+                case "3" ->suggestGames();
+                case "4" -> listAllGames();
+                case "5" -> exit();
                 default -> System.out.println("Invalid choice. Please select a valid option.");
             }
         }
