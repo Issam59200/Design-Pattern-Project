@@ -12,3 +12,9 @@ J'ai aussi ajouté GameRecommender.java qui recommande des jeux en fonction du n
 
 ---
 
+Enzo :
+
+J'ai implémenté 4 nouvelles méthodes. 3 dans GameRepository dont deux pour de la gestion d'erreur (notamment gestion des doublons feature 1) 
+et une pour générer un mélange aléatoire parmi la liste de jeux. J'ai adapté la classe Menu en conséquence et j'y ai implémnté une méthode isWeekend()
+pour que l'option Suggest a weekend selection ne soit disponible que pour le weekend. C'était ici la tâche la plus pénible. Je ne suis pas très fort en java,
+l'implémentation n'a vraiment pas été simple pour moi, je tenté plusieurs approches pour arriver à ce résultat finalpour la troisième feature.
