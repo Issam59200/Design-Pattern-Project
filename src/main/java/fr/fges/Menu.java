@@ -18,10 +18,10 @@ public class Menu {
     private void suggestGames() {
 
         // On vérifie d'abord s'il y a des jeux
-            if (repository.isEmpty()) {
-                System.out.println("Aucun jeu disponible pour le moment !");
-                return; // On s'arrête là, on ne descend pas plus bas
-            }
+        if (repository.isEmpty()) {
+            System.out.println("Aucun jeu disponible pour le moment !");
+            return; // On s'arrête là, on ne descend pas plus bas
+        }
         System.out.println("Combien de jeux voulez-vous pour votre week-end ?");
 
         // 1. On récupère le nombre saisi par l'utilisateur
@@ -40,6 +40,13 @@ public class Menu {
         } catch (NumberFormatException e) {
             System.out.println("Merci de saisir un nombre valide.");
         }
+    }
+
+    // Méthode pour savoir si on est le week-end
+    private boolean isWeekend() {
+        LocalDate today = LocalDate.now();
+        DayOfWeek day = today.getDayOfWeek();
+        return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
     }
 
     public Menu(ApplicationContext context, Scanner scanner) {
@@ -61,19 +68,18 @@ public class Menu {
     // Pas de changement ici
     public static void displayMainMenu() {
         System.out.println("=== Board Game Collection ===");
-        System.out.println("1. Add Board Game");
-        System.out.println("2. Remove Board Game");
-        // Logique temporelle pour n'afficher l'option que le weekend
-        LocalDate today = LocalDate.now();
-        DayOfWeek day = today.getDayOfWeek();
+
+        int num = 1;
+        System.out.println(num++ + ". Add Board Game");
+        System.out.println(num++ + ". Remove Board Game");
 
         // On vérifie si c'est le week-end
-        if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
-            System.out.println("3. Suggest a weekend selection");
+        if (isWeekend()) {
+            System.out.println(num++ + ". Suggest a weekend selection");
         }
-        System.out.println("4. List All Board Games");
-        System.out.println("5. Recommend Game");
-        System.out.println("6. Exit");
+        System.out.println(num++ + ". List All Board Games");
+        System.out.println(num++ + ". Recommend Game");
+        System.out.println(num++ + ". Exit");
         System.out.println("Please select an option (1-6):");
     }
 
