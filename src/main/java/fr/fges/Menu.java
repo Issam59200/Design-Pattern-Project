@@ -2,6 +2,8 @@ package fr.fges;
 
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.DayOfWeek;
 
 public class Menu {
 
@@ -58,18 +60,21 @@ public class Menu {
 
     // Pas de changement ici
     public static void displayMainMenu() {
-        String menuText = """
-                === Board Game Collection ===
-                1. Add Board Game
-                2. Remove Board Game
-                3. Suggest a weekend selection
-                4. List All Board Games
-                5. Recommend Game
-                6. Exit
-                Please select an option (1-6):
-                """;
+        System.out.println("=== Board Game Collection ===");
+        System.out.println("1. Add Board Game");
+        System.out.println("2. Remove Board Game");
+        // Logique temporelle pour n'afficher l'option que le weekend
+        LocalDate today = LocalDate.now();
+        DayOfWeek day = today.getDayOfWeek();
 
-        System.out.println(menuText);
+        // On vérifie si c'est le week-end
+        if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            System.out.println("3. Suggest a weekend selection");
+        }
+        System.out.println("4. List All Board Games");
+        System.out.println("5. Recommend Game");
+        System.out.println("6. Exit");
+        System.out.println("Please select an option (1-6):");
     }
 
     public void addGame() {
