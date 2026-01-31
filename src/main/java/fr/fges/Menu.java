@@ -14,6 +14,12 @@ public class Menu {
     private final GameRecommender recommender;
 
     private void suggestGames() {
+
+        // On vérifie d'abord s'il y a des jeux
+            if (repository.isEmpty()) {
+                System.out.println("Aucun jeu disponible pour le moment !");
+                return; // On s'arrête là, on ne descend pas plus bas
+            }
         System.out.println("Combien de jeux voulez-vous pour votre week-end ?");
 
         // 1. On récupère le nombre saisi par l'utilisateur

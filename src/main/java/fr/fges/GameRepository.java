@@ -36,11 +36,15 @@ public class GameRepository {
         return false;
     }
 
+    // Mélange aléatoirement les jeux
     public List<BoardGame> getRandomGames (int count) {
         Collections.shuffle(games);
         return games.subList(0, Math.min(count, games.size()));
 
     }
 
-
+    // Vérifie s'il y a des jeux
+    public boolean isEmpty() {
+        return games.isEmpty();
+    }
 }
