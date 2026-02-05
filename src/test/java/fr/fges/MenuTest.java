@@ -1,147 +1,112 @@
 package fr.fges;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
-import java.util.Scanner;
+import static org.mockito.Mockito.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@ExtendWith(MockitoExtension.class)
 class MenuTest {
 
-    private final InputStream originalIn = System.in;
-    private final PrintStream originalOut = System.out;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    
-    private GameRepository repository;
-    private GameStorage storage;
-    private GameDisplay display;
+    @Mock
+    private GameController controller;
+
+    @Mock
+    private InputHandler inputHandler;
+
+    @InjectMocks
     private Menu menu;
-    private Path tempFile;
 
-    @BeforeEach
-    void setUp() throws IOException {
-        // Rediriger la sortie console
-        System.setOut(new PrintStream(outContent));
-
-        tempFile = Files.createTempFile("test-menu", ".json");
-        
-        repository = new GameRepository();
-        storage = new GameStorage(tempFile.toString());
-        display = new GameDisplay();
+    private void simulateUserInput(String choice) {
+        when(inputHandler.readMenuChoice())
+                .thenReturn(choice)
+                .thenThrow(new RuntimeException("Stop Loop"));
     }
 
-    @AfterEach
-    void restoreStreams() throws IOException {
-        // Remettre la console normale
-        System.setIn(originalIn);
-        System.setOut(originalOut);
-        
-        Files.deleteIfExists(tempFile);
+    private void runMenuSafe() {
+        try {
+            menu.run();
+        } catch (RuntimeException e) {
+            // On ignore l'exception "Stop Loop", c'est juste pour sortir du while(true)
+        }
     }
 
     @Test
-    void testAddGame() {
-        String simulation = "Uno\n2\n10\nCard\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
+    void shouldCallListGames_WhenChoiceIs3_InWeekday() {
+        // ARRANGE
+        when(controller.isWeekend()).thenReturn(false); // On est en SEMAINE
+        simulateUserInput("3"); // L'utilisateur tape 3
 
-        menu.addGame();
+        // ACT
+        runMenuSafe();
 
-        List<BoardGame> games = repository.getGames();
-        assertEquals(1, games.size(), "Il devrait y avoir 1 jeu ajouté");
-        assertEquals("Uno", games.get(0).title());
-
-        assertTrue(outContent.toString().contains("Board game added successfully"));
-        testScanner.close();
+        // ASSERT
+        // En semaine, 3 = List All Games
+        verify(controller).listAllGames();
+        verify(controller, never()).suggestGames(); // On vérifie qu'on n'a pas appelé la méthode du weekend
     }
 
     @Test
-    void testAddGameWithInvalidInput() {
-        String simulation = "BadInputGame\ndeux\n3\nStrategy\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
+    void shouldCallRecommend_WhenChoiceIs4_InWeekday() {
+        // ARRANGE
+        when(controller.isWeekend()).thenReturn(false);
+        simulateUserInput("4");
 
-        menu.addGame();
+        // ACT
+        runMenuSafe();
 
-        assertEquals(0, repository.getGames().size());
-        assertTrue(outContent.toString().contains("Error: Please enter valid numbers"));
-        testScanner.close();
+        // ASSERT
+        // En semaine, 4 = Recommend
+        verify(controller).recommendGame();
     }
 
     @Test
-    void testRemoveGame() {
-        repository.addGame(new BoardGame("Monopoly", 2, 8, "Family"));
+    void shouldCallSuggest_WhenChoiceIs3_InWeekend() {
+        // ARRANGE
+        when(controller.isWeekend()).thenReturn(true); // On est le WEEK-END
+        simulateUserInput("3");
 
-        String simulation = "Monopoly\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
+        // ACT
+        runMenuSafe();
 
-        menu.removeGame();
-
-        assertEquals(0, repository.getGames().size(), "La collection doit être vide");
-        assertTrue(outContent.toString().contains("Board game removed successfully"));
-        testScanner.close();
+        // ASSERT
+        // Le week-end, 3 = Suggest weekend selection
+        verify(controller).suggestGames();
+        verify(controller, never()).listAllGames(); // Ce n'est pas "Lister" sur le bouton 3 le week-end
     }
 
     @Test
-    void testRemoveGameNotFound() {
-        repository.addGame(new BoardGame("Monopoly", 2, 8, "Family"));
+    void shouldCallListGames_WhenChoiceIs4_InWeekend() {
+        // ARRANGE
+        when(controller.isWeekend()).thenReturn(true);
+        simulateUserInput("4");
 
-        String simulation = "Trivial Pursuit\n";
-        Scanner testScanner = new Scanner(new ByteArrayInputStream(simulation.getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
+        // ACT
+        runMenuSafe();
 
-        menu.removeGame();
-
-        assertEquals(1, repository.getGames().size(), "Le jeu ne doit pas être supprimé");
-        assertTrue(outContent.toString().contains("No board game found"));
-        testScanner.close();
+        // ASSERT
+        // Le week-end, 4 = List All Games (tout est décalé de 1)
+        verify(controller).listAllGames();
     }
 
     @Test
-    void testListAllGamesEmpty() {
-        Scanner testScanner = new Scanner(new ByteArrayInputStream("".getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
-        
-        menu.listAllGames();
+    void shouldDisplayError_WhenChoiceIsInvalid() {
+        // ARRANGE
+        when(controller.isWeekend()).thenReturn(false);
+        simulateUserInput("99"); // Choix qui n'existe pas
 
-        assertTrue(outContent.toString().contains("No board games in collection"));
-        testScanner.close();
-    }
+        // ACT
+        runMenuSafe();
 
-    @Test
-    void testListAllGamesWithContent() {
-        repository.addGame(new BoardGame("Catan", 3, 4, "Strategy"));
-
-        Scanner testScanner = new Scanner(new ByteArrayInputStream("".getBytes()));
-        GameRecommender recommender = new GameRecommender(repository);
-        ApplicationContext context = new ApplicationContext(repository, storage, display, recommender);
-        menu = new Menu(context, testScanner);
-        
-        menu.listAllGames();
-
-        assertTrue(outContent.toString().contains("Catan"));
-        assertTrue(outContent.toString().contains("(3-4 players)"));
-        testScanner.close();
+        // ASSERT
+        verify(controller, never()).addGame();
+        verify(controller, never()).removeGame();
+        verify(controller, never()).listAllGames();
+        verify(controller, never()).recommendGame();
+        verify(controller, never()).suggestGames();
+        verify(controller, never()).exit();
     }
 }

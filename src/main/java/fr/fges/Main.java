@@ -24,33 +24,6 @@ public class Main {
         System.exit(1);
     }
 
-    private static ApplicationContext initializeApplication(String storageFile) {
-        // Créer les instances de nos nouvelles classes
-        GameRepository repository = new GameRepository();
-        GameStorage storage = new GameStorage(storageFile);
-        GameDisplay display = new GameDisplay();
-        GameRecommender recommender = new GameRecommender(repository);
-        
-        // Charger les jeux depuis le fichier
-        List<BoardGame> loadedGames = storage.loadFromFile();
-        
-        // Ajouter les jeux chargés dans le repository
-        for (BoardGame game : loadedGames) {
-            repository.addGame(game);
-        }
-        
-        System.out.println("Using storage file: " + storageFile);
-        
-        // Retourner un objet qui contient tout (pour passer au Menu)
-        return new ApplicationContext(repository, storage, display, recommender);
-    }
-
-    private static void runApplication(ApplicationContext context) {
-        Scanner scanner = new Scanner(System.in);
-        Menu menu = new Menu(context, scanner);
-        menu.handleMenu();
-    }
-
     // Méthode principale simplifiée qui orchestre les autres méthodes
     public static void main(String[] args) {
         validateArguments(args);
@@ -61,8 +34,28 @@ public class Main {
             handleInvalidExtension();
         }
 
-        ApplicationContext context = initializeApplication(storageFile);
-        runApplication(context);
+        // 1. Créer les classes "bas niveau" (données et persistance)
+        GameRepository repository = new GameRepository();
+        GameStorage storage = new GameStorage(storageFile);
+        GameDisplay display = new GameDisplay();
+        GameRecommender recommender = new GameRecommender(repository);
+
+        // 2. Charger les jeux existants
+        List<BoardGame> loadedGames = storage.loadFromFile();
+        for (BoardGame game : loadedGames) {
+            repository.addGame(game);
+        }
+
+        System.out.println("Using storage file: " + storageFile);
+
+        // 3. Créer les classes "haut niveau" (interaction utilisateur)
+        Scanner scanner = new Scanner(System.in);
+        InputHandler inputHandler = new InputHandler(scanner);
+        GameController controller = new GameController(repository, storage, display, recommender, inputHandler);
+
+        // 4. Créer et lancer le menu
+        Menu menu = new Menu(controller, inputHandler);
+        menu.run();
     }
 }
 

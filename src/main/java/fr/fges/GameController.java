@@ -23,7 +23,7 @@ public class GameController {
     }
 
     // Méthode pour savoir si on est le week-end
-    private boolean isWeekend() {
+    public boolean isWeekend() {
         LocalDate today = LocalDate.now();
         DayOfWeek day = today.getDayOfWeek();
         return day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY;
