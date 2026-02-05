@@ -142,6 +142,27 @@ public class GameController {
         }
     }
 
+    public void gamesForXPlayers() {
+        System.out.println("--- Games for X Players ---");
+
+        Optional<Integer> playerCount = inputHandler.readInt("Number of players");
+        if (playerCount.isEmpty()) {
+            System.out.println("Error: Please enter a valid number.");
+            return;
+        }
+
+        List<BoardGame> compatibleGames = repository.getGamesForPlayerCount(playerCount.get());
+
+        if (compatibleGames.isEmpty()) {
+            System.out.printf("No games found for %d players.%n", playerCount.get());
+        } else {
+            System.out.printf("Games for %d players:%n", playerCount.get());
+            for (BoardGame game : compatibleGames) {
+                System.out.println(display.formatGameDisplay(game));
+            }
+        }
+    }
+
     public void exit() {
         System.out.println("Exiting the application. Goodbye!");
         System.exit(0);

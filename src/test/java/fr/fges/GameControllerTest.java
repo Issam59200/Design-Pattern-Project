@@ -130,4 +130,52 @@ class GameControllerTest {
         verify(repository).getRandomGames(requestedCount); // On a bien demandé 3 jeux au repo
         verify(display).formatGameDisplay(g1);             // On a bien demandé l'affichage du jeu
     }
+
+    @Test
+    void gamesForXPlayers_ShouldDisplayGames_WhenCompatibleGamesExist() {
+        // ARRANGE
+        int playerCount = 4;
+        BoardGame catan = new BoardGame("Catan", 3, 4, "Strategy");
+        BoardGame pandemic = new BoardGame("Pandemic", 2, 4, "Cooperative");
+        List<BoardGame> compatibleGames = List.of(catan, pandemic);
+
+        when(inputHandler.readInt("Number of players")).thenReturn(Optional.of(playerCount));
+        when(repository.getGamesForPlayerCount(playerCount)).thenReturn(compatibleGames);
+
+        // ACT
+        controller.gamesForXPlayers();
+
+        // ASSERT
+        verify(repository).getGamesForPlayerCount(playerCount);
+        verify(display).formatGameDisplay(catan);
+        verify(display).formatGameDisplay(pandemic);
+    }
+
+    @Test
+    void gamesForXPlayers_ShouldDisplayMessage_WhenNoCompatibleGames() {
+        // ARRANGE
+        int playerCount = 10;
+        when(inputHandler.readInt("Number of players")).thenReturn(Optional.of(playerCount));
+        when(repository.getGamesForPlayerCount(playerCount)).thenReturn(List.of());
+
+        // ACT
+        controller.gamesForXPlayers();
+
+        // ASSERT
+        verify(repository).getGamesForPlayerCount(playerCount);
+        verify(display, never()).formatGameDisplay(any());
+    }
+
+    @Test
+    void gamesForXPlayers_ShouldNotProceed_WhenInputIsInvalid() {
+        // ARRANGE
+        when(inputHandler.readInt("Number of players")).thenReturn(Optional.empty());
+
+        // ACT
+        controller.gamesForXPlayers();
+
+        // ASSERT
+        verify(repository, never()).getGamesForPlayerCount(anyInt());
+        verify(display, never()).formatGameDisplay(any());
+    }
 }

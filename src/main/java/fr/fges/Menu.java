@@ -26,8 +26,9 @@ public class Menu {
         }
         System.out.println(num++ + ". List All Board Games");
         System.out.println(num++ + ". Recommend Game");
+        System.out.println(num++ + ". Games for X Players"); // Ajout nouvelle feature
         System.out.println(num++ + ". Exit");
-        System.out.println("Please select an option (1-6):");
+        System.out.println("Please select an option:");
     }
 
     public void run() {
@@ -51,7 +52,8 @@ public class Menu {
             case "3" -> controller.suggestGames();
             case "4" -> controller.listAllGames();
             case "5" -> controller.recommendGame();
-            case "6" -> controller.exit();
+            case "6" -> controller.gamesForXPlayers();
+            case "7" -> controller.exit();
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }
@@ -63,7 +65,8 @@ public class Menu {
             case "2" -> controller.removeGame();
             case "3" -> controller.listAllGames();
             case "4" -> controller.recommendGame();
-            case "5" -> controller.exit();
+            case "5" -> controller.gamesForXPlayers();
+            case "6" -> controller.exit();
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }

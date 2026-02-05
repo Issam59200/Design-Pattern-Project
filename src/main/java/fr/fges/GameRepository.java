@@ -43,6 +43,14 @@ public class GameRepository {
 
     }
 
+    // Retourne tous les jeux compatibles avec le nombre de joueurs, triés alphabétiquement
+    public List<BoardGame> getGamesForPlayerCount(int playerCount) {
+        return games.stream()
+                .filter(game -> game.minPlayers() <= playerCount && game.maxPlayers() >= playerCount)
+                .sorted(Comparator.comparing(BoardGame::title))
+                .toList();
+    }
+
     // Vérifie s'il y a des jeux
     public boolean isEmpty() {
         return games.isEmpty();
