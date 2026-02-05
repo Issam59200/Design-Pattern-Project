@@ -20,7 +20,7 @@ public class InputHandler {
         return scanner.nextLine();
     }
 
-    public Optional<Integer> readint(String prompt) {
+    public Optional<Integer> readInt(String prompt) {
         System.out.printf("%s: ", prompt);
         String input = scanner.nextLine();
 
