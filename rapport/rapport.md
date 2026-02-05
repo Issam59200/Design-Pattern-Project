@@ -1,3 +1,13 @@
+## Rapport de la semaine du 2 février 
+
+Issam :
+
+Cette semaine j'ai séparé GameStorage.java en deux classes spécialisées (GameStorageCSV.java et GameStorageJSON.java) avec un pattern Delegation, du coup GameStorage délègue juste aux bonnes classes selon le format. 
+
+Ensuite j'ai implémenté la feature n°1, j'ai créé une interface Command.java et deux implémentations AddGameCommand.java et RemoveGameCommand.java, plus un CommandManager.java qui gère l'historique avec une Stack. C'était pas évident au début de comprendre comment bien structurer ça. 
+
+J'ai aussi refactorisé GameController qui était trop 'fat' en le séparant en trois services : CommandManager pour l'historique, GameManagementService pour les opérations CRUD, et GameQueryService pour les consultations. Pour les tests j'ai créé CommandManagerTest.java, GameManagementServiceTest.java et GameQueryServiceTest.java, et simplifié GameControllerTest. 
+
 ## Rapport de la semaine du 26 janvier
 
 Issam :
