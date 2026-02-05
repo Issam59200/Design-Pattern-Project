@@ -67,28 +67,28 @@ class MenuTest {
     void shouldCallSuggest_WhenChoiceIs3_InWeekend() {
         // ARRANGE
         when(controller.isWeekend()).thenReturn(true); // On est le WEEK-END
-        simulateUserInput("3");
+        simulateUserInput("5");
 
         // ACT
         runMenuSafe();
 
         // ASSERT
-        // Le week-end, 3 = Suggest weekend selection
+        // Le week-end, 5 = View Summary (suggestGames)
         verify(controller).suggestGames();
-        verify(controller, never()).listAllGames(); // Ce n'est pas "Lister" sur le bouton 3 le week-end
+        verify(controller, never()).listAllGames(); // Ce n'est pas "Lister" sur le bouton 5 le week-end
     }
 
     @Test
     void shouldCallListGames_WhenChoiceIs4_InWeekend() {
         // ARRANGE
         when(controller.isWeekend()).thenReturn(true);
-        simulateUserInput("4");
+        simulateUserInput("3");
 
         // ACT
         runMenuSafe();
 
         // ASSERT
-        // Le week-end, 4 = List All Games (tout est décalé de 1)
+        // Le week-end, 3 = List All Games
         verify(controller).listAllGames();
     }
 

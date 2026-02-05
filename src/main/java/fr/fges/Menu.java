@@ -19,14 +19,15 @@ public class Menu {
         int num = 1;
         System.out.println(num++ + ". Add Board Game");
         System.out.println(num++ + ". Remove Board Game");
+        System.out.println(num++ + ". List All Board Games");
+        System.out.println(num++ + ". Recommend Game");
 
         // On vérifie si c'est le week-end
         if (controller.isWeekend()) {
-            System.out.println(num++ + ". Suggest a weekend selection");
+            System.out.println(num++ + ". View Summary (Weekend Special!)");
         }
-        System.out.println(num++ + ". List All Board Games");
-        System.out.println(num++ + ". Recommend Game");
-        System.out.println(num++ + ". Games for X Players"); // Ajout nouvelle feature
+        System.out.println(num++ + ". Undo Last Action");
+        System.out.println(num++ + ". Games for X Players");
         System.out.println(num++ + ". Exit");
         System.out.println("Please select an option:");
     }
@@ -49,11 +50,12 @@ public class Menu {
         switch (choice) {
             case "1" -> controller.addGame();
             case "2" -> controller.removeGame();
-            case "3" -> controller.suggestGames();
-            case "4" -> controller.listAllGames();
-            case "5" -> controller.recommendGame();
-            case "6" -> controller.gamesForXPlayers();
-            case "7" -> controller.exit();
+            case "3" -> controller.listAllGames();
+            case "4" -> controller.recommendGame();
+            case "5" -> controller.suggestGames();
+            case "6" -> controller.undoLastAction();
+            case "7" -> controller.gamesForXPlayers();
+            case "8" -> controller.exit();
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }
@@ -65,8 +67,9 @@ public class Menu {
             case "2" -> controller.removeGame();
             case "3" -> controller.listAllGames();
             case "4" -> controller.recommendGame();
-            case "5" -> controller.gamesForXPlayers();
-            case "6" -> controller.exit();
+            case "5" -> controller.undoLastAction();
+            case "6" -> controller.gamesForXPlayers();
+            case "7" -> controller.exit();
             default -> System.out.println("Invalid choice. Please select a valid option.");
         }
     }

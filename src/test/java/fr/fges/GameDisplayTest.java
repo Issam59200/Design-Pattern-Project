@@ -18,7 +18,7 @@ class GameDisplayTest {
         String result = display.formatGameDisplay(monopoly);
         
         // Assert
-        assertEquals("Game: Monopoly (2-6 players) - Strategy", result);
+        assertEquals("- Monopoly (2-6 players) [Strategy]", result);
     }
 
     @Test
