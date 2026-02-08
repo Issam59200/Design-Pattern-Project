@@ -8,6 +8,14 @@ Ensuite j'ai implémenté la feature n°1, j'ai créé une interface Command.jav
 
 J'ai aussi refactorisé GameController qui était trop 'fat' en le séparant en trois services : CommandManager pour l'historique, GameManagementService pour les opérations CRUD, et GameQueryService pour les consultations. Pour les tests j'ai créé CommandManagerTest.java, GameManagementServiceTest.java et GameQueryServiceTest.java, et simplifié GameControllerTest. 
 
+---
+
+Enzo:
+
+Pour cette semaine, j'ai séparé le menu en trois nouvelle classes InputHandler(gestion des entrées utilisateur), GameController(logique métier) et Menu (affichage et navigation).
+J'ai supprimé la classe ApplicationContext qui est devenu inutile et j'ai réalisé les tests untaires de mes nouvelles classes. J'ai également ajouté la feature "Game for X Players"
+qui affiche tous les jeux compatibles triés alphabétiquement selon un nombre de joueurs donné.
+
 ## Rapport de la semaine du 26 janvier
 
 Issam :
