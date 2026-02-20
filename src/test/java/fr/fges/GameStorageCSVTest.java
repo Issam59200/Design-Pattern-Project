@@ -35,13 +35,13 @@ class GameStorageCSVTest {
         );
         
         // Act - Sauvegarder
-        csvStorage.saveToCsv(tempCsvFile.toString(), gamesToSave);
+        csvStorage.save(tempCsvFile.toString(), gamesToSave);
         
         // Assert - Le fichier doit exister
         assertTrue(Files.exists(tempCsvFile));
         
         // Act - Charger
-        List<BoardGame> loadedGames = csvStorage.loadFromCsv(tempCsvFile.toString());
+        List<BoardGame> loadedGames = csvStorage.load(tempCsvFile.toString());
         
         // Assert - Les jeux chargés doivent être identiques
         assertEquals(2, loadedGames.size());
@@ -61,7 +61,7 @@ class GameStorageCSVTest {
         Files.deleteIfExists(tempCsvFile);
         
         // Act
-        List<BoardGame> loadedGames = csvStorage.loadFromCsv(tempCsvFile.toString());
+        List<BoardGame> loadedGames = csvStorage.load(tempCsvFile.toString());
         
         // Assert
         assertTrue(loadedGames.isEmpty());
@@ -73,8 +73,8 @@ class GameStorageCSVTest {
         List<BoardGame> emptyList = List.of();
         
         // Act
-        csvStorage.saveToCsv(tempCsvFile.toString(), emptyList);
-        List<BoardGame> loadedGames = csvStorage.loadFromCsv(tempCsvFile.toString());
+        csvStorage.save(tempCsvFile.toString(), emptyList);
+        List<BoardGame> loadedGames = csvStorage.load(tempCsvFile.toString());
         
         // Assert
         assertTrue(loadedGames.isEmpty());
@@ -88,7 +88,7 @@ class GameStorageCSVTest {
         );
         
         // Act
-        csvStorage.saveToCsv(tempCsvFile.toString(), games);
+        csvStorage.save(tempCsvFile.toString(), games);
         
         // Assert - Vérifier le format CSV
         String content = Files.readString(tempCsvFile);

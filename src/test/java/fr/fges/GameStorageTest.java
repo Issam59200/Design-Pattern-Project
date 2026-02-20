@@ -12,7 +12,7 @@ class GameStorageTest {
     @Test
     void shouldDetectJsonFormat() {
         // Arrange
-        GameStorage storage = new GameStorage("test.json");
+        GameStorage storage = new GameStorageJSON();
         
         // Act & Assert - Le format doit être détecté correctement
         assertNotNull(storage);
@@ -21,7 +21,7 @@ class GameStorageTest {
     @Test
     void shouldDetectCsvFormat() {
         // Arrange
-        GameStorage storage = new GameStorage("test.csv");
+        GameStorage storage = new GameStorageCSV();
         
         // Act & Assert - Le format doit être détecté correctement
         assertNotNull(storage);

@@ -35,13 +35,13 @@ class GameStorageJSONTest {
         );
         
         // Act - Sauvegarder
-        jsonStorage.saveToJson(tempJsonFile.toString(), gamesToSave);
+        jsonStorage.save(tempJsonFile.toString(), gamesToSave);
         
         // Assert - Le fichier doit exister
         assertTrue(Files.exists(tempJsonFile));
         
         // Act - Charger
-        List<BoardGame> loadedGames = jsonStorage.loadFromJson(tempJsonFile.toString());
+        List<BoardGame> loadedGames = jsonStorage.load(tempJsonFile.toString());
         
         // Assert - Les jeux chargés doivent être identiques
         assertEquals(2, loadedGames.size());
@@ -61,7 +61,7 @@ class GameStorageJSONTest {
         Files.deleteIfExists(tempJsonFile);
         
         // Act
-        List<BoardGame> loadedGames = jsonStorage.loadFromJson(tempJsonFile.toString());
+        List<BoardGame> loadedGames = jsonStorage.load(tempJsonFile.toString());
         
         // Assert
         assertTrue(loadedGames.isEmpty());
@@ -73,8 +73,8 @@ class GameStorageJSONTest {
         List<BoardGame> emptyList = List.of();
         
         // Act
-        jsonStorage.saveToJson(tempJsonFile.toString(), emptyList);
-        List<BoardGame> loadedGames = jsonStorage.loadFromJson(tempJsonFile.toString());
+        jsonStorage.save(tempJsonFile.toString(), emptyList);
+        List<BoardGame> loadedGames = jsonStorage.load(tempJsonFile.toString());
         
         // Assert
         assertTrue(loadedGames.isEmpty());
@@ -88,7 +88,7 @@ class GameStorageJSONTest {
         );
         
         // Act
-        jsonStorage.saveToJson(tempJsonFile.toString(), games);
+        jsonStorage.save(tempJsonFile.toString(), games);
         
         // Assert - Vérifier que le JSON est formaté (pretty print)
         String content = Files.readString(tempJsonFile);
