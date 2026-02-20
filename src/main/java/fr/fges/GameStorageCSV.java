@@ -10,16 +10,17 @@ import java.util.List;
 
 /**
  * Gestionnaire de stockage CSV.
- * Gère le chargement et la sauvegarde des jeux au format CSV.
+ * Responsabilité unique : lire et écrire des jeux au format CSV.
  */
-public class GameStorageCSV {
+public class GameStorageCSV implements GameStorage {
     
     /**
      * Charge les jeux depuis un fichier CSV.
      * @param filename Chemin du fichier CSV
      * @return Liste des jeux chargés
      */
-    public List<BoardGame> loadFromCsv(String filename) {
+    @Override
+    public List<BoardGame> load(String filename) {
         List<BoardGame> loadedGames = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -27,7 +28,7 @@ public class GameStorageCSV {
             while ((line = reader.readLine()) != null) {
                 if (firstLine) {
                     firstLine = false;
-                    continue; // skip header
+                    continue;
                 }
                 String[] parts = line.split(",");
                 if (parts.length >= 4) {
@@ -51,7 +52,8 @@ public class GameStorageCSV {
      * @param filename Chemin du fichier CSV
      * @param games Liste des jeux à sauvegarder
      */
-    public void saveToCsv(String filename, List<BoardGame> games) {
+    @Override
+    public void save(String filename, List<BoardGame> games) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write("title,minPlayers,maxPlayers,category");
             writer.newLine();

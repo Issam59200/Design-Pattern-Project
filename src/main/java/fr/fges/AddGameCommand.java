@@ -7,24 +7,26 @@ package fr.fges;
 public class AddGameCommand implements Command {
     private final GameRepository repository;
     private final GameStorage storage;
+    private final String storageFile;
     private final BoardGame game;
 
-    public AddGameCommand(GameRepository repository, GameStorage storage, BoardGame game) {
+    public AddGameCommand(GameRepository repository, GameStorage storage, String storageFile, BoardGame game) {
         this.repository = repository;
         this.storage = storage;
+        this.storageFile = storageFile;
         this.game = game;
     }
 
     @Override
     public void execute() {
         repository.addGame(game);
-        storage.saveToFile(repository.getGames());
+        storage.save(storageFile, repository.getGames());
     }
 
     @Override
     public void undo() {
         repository.removeGame(game);
-        storage.saveToFile(repository.getGames());
+        storage.save(storageFile, repository.getGames());
         System.out.println("Undone: Removed \"" + game.title() + "\" from collection");
     }
 
