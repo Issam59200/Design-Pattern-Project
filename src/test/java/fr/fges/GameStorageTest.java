@@ -1,9 +1,7 @@
 package fr.fges;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.List;
 
 class GameStorageTest {
     
