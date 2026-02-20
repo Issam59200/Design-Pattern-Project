@@ -34,14 +34,14 @@ public class Main {
             handleInvalidExtension();
         }
 
-        // 1. Créer les classes "bas niveau" (données et persistance)
+        // 1. Couche Data : Factory crée le bon DAO selon l'extension
         GameRepository repository = new GameRepository();
-        GameStorage storage = new GameStorage(storageFile);
+        GameStorage storage = GameStorageFactory.create(storageFile);
         GameDisplay display = new GameDisplay();
         GameRecommender recommender = new GameRecommender(repository);
 
         // 2. Charger les jeux existants
-        List<BoardGame> loadedGames = storage.loadFromFile();
+        List<BoardGame> loadedGames = storage.load(storageFile);
         for (BoardGame game : loadedGames) {
             repository.addGame(game);
         }
@@ -51,7 +51,7 @@ public class Main {
         // 3. Créer les classes "haut niveau" (interaction utilisateur)
         Scanner scanner = new Scanner(System.in);
         InputHandler inputHandler = new InputHandler(scanner);
-        GameController controller = new GameController(repository, storage, display, recommender, inputHandler);
+        GameController controller = new GameController(repository, storage, storageFile, display, recommender, inputHandler);
 
         // 4. Créer et lancer le menu avec le MenuRegistry
         boolean isWeekend = controller.isWeekend();

@@ -12,10 +12,10 @@ public class GameController {
     private final GameQueryService queryService;
     private final CommandManager commandManager;
 
-    public GameController(GameRepository repository, GameStorage storage, GameDisplay display, 
-                         GameRecommender recommender, InputHandler inputHandler) {
+    public GameController(GameRepository repository, GameStorage storage, String storageFile,
+        GameDisplay display, GameRecommender recommender, InputHandler inputHandler) {
         this.commandManager = new CommandManager();
-        this.managementService = new GameManagementService(repository, storage, inputHandler, commandManager);
+        this.managementService = new GameManagementService(repository, storage, storageFile, inputHandler, commandManager);
         this.queryService = new GameQueryService(repository, display, recommender, inputHandler);
     }
 

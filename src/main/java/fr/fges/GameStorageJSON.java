@@ -10,16 +10,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Gestionnaire de stockage JSON.
- * Gère le chargement et la sauvegarde des jeux au format JSON.
+ * Responsabilité unique : lire et écrire des jeux au format JSON.
  */
-public class GameStorageJSON {
+public class GameStorageJSON implements GameStorage {
     
     /**
      * Charge les jeux depuis un fichier JSON.
      * @param filename Chemin du fichier JSON
      * @return Liste des jeux chargés
      */
-    public List<BoardGame> loadFromJson(String filename) {
+    @Override
+    public List<BoardGame> load(String filename) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             File file = new File(filename);
@@ -35,7 +36,8 @@ public class GameStorageJSON {
      * @param filename Chemin du fichier JSON
      * @param games Liste des jeux à sauvegarder
      */
-    public void saveToJson(String filename, List<BoardGame> games) {
+    @Override
+    public void save(String filename, List<BoardGame> games) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), games);

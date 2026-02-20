@@ -9,13 +9,15 @@ import java.util.Optional;
 public class GameManagementService {
     private final GameRepository repository;
     private final GameStorage storage;
+    private final String storageFile;
     private final InputHandler inputHandler;
     private final CommandManager commandManager;
 
-    public GameManagementService(GameRepository repository, GameStorage storage, 
+    public GameManagementService(GameRepository repository, GameStorage storage, String storageFile,
                                  InputHandler inputHandler, CommandManager commandManager) {
         this.repository = repository;
         this.storage = storage;
+        this.storageFile = storageFile;
         this.inputHandler = inputHandler;
         this.commandManager = commandManager;
     }
@@ -50,7 +52,7 @@ public class GameManagementService {
         String category = inputHandler.readString("Category");
 
         BoardGame game = new BoardGame(title, minPlayers.get(), maxPlayers.get(), category);
-        Command command = new AddGameCommand(repository, storage, game);
+        Command command = new AddGameCommand(repository, storage, storageFile, game);
         commandManager.executeCommand(command);
 
         System.out.println("Board game added successfully.");
@@ -71,7 +73,7 @@ public class GameManagementService {
                 .orElse(null);
 
         if (gameToRemove != null) {
-            Command command = new RemoveGameCommand(repository, storage, gameToRemove);
+            Command command = new RemoveGameCommand(repository, storage, storageFile, gameToRemove);
             commandManager.executeCommand(command);
             System.out.println("Board game removed successfully.");
         } else {
