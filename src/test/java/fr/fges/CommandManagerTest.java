@@ -22,6 +22,8 @@ class CommandManagerTest {
     @Mock
     private GameStorage storage;
 
+    private static final String STORAGE_FILE = "test.json";
+
     private CommandManager commandManager;
 
     @BeforeEach
@@ -33,14 +35,14 @@ class CommandManagerTest {
     void shouldExecuteCommandAndAddToHistory() {
         // Arrange
         BoardGame game = new BoardGame("Catan", 3, 4, "Strategy");
-        Command command = new AddGameCommand(repository, storage, game);
+        Command command = new AddGameCommand(repository, storage, STORAGE_FILE, game);
 
         // Act
         commandManager.executeCommand(command);
 
         // Assert
         verify(repository).addGame(game);
-        verify(storage).saveToFile(any());
+        verify(storage).save(anyString(), any());
         assertFalse(commandManager.isEmpty());
     }
 
@@ -48,7 +50,7 @@ class CommandManagerTest {
     void shouldUndoLastCommand() {
         // Arrange
         BoardGame game = new BoardGame("Catan", 3, 4, "Strategy");
-        Command command = new AddGameCommand(repository, storage, game);
+        Command command = new AddGameCommand(repository, storage, STORAGE_FILE, game);
         commandManager.executeCommand(command);
 
         // Act
@@ -76,8 +78,8 @@ class CommandManagerTest {
         // Arrange
         BoardGame game1 = new BoardGame("Catan", 3, 4, "Strategy");
         BoardGame game2 = new BoardGame("Pandemic", 2, 4, "Cooperative");
-        Command command1 = new AddGameCommand(repository, storage, game1);
-        Command command2 = new AddGameCommand(repository, storage, game2);
+        Command command1 = new AddGameCommand(repository, storage, STORAGE_FILE, game1);
+        Command command2 = new AddGameCommand(repository, storage, STORAGE_FILE, game2);
         
         commandManager.executeCommand(command1);
         commandManager.executeCommand(command2);
@@ -96,7 +98,7 @@ class CommandManagerTest {
     void shouldUndoRemoveCommand() {
         // Arrange
         BoardGame game = new BoardGame("Catan", 3, 4, "Strategy");
-        Command command = new RemoveGameCommand(repository, storage, game);
+        Command command = new RemoveGameCommand(repository, storage, STORAGE_FILE, game);
         commandManager.executeCommand(command);
 
         // Act

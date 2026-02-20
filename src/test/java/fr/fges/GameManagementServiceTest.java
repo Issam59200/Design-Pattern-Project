@@ -34,9 +34,11 @@ class GameManagementServiceTest {
 
     private GameManagementService service;
 
+    private static final String STORAGE_FILE = "test.json";
+
     @BeforeEach
     void setUp() {
-        service = new GameManagementService(repository, storage, inputHandler, commandManager);
+        service = new GameManagementService(repository, storage, STORAGE_FILE, inputHandler, commandManager);
     }
 
     @Test

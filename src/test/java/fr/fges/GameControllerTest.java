@@ -32,10 +32,12 @@ class GameControllerTest {
 
     private GameController controller;
 
+    private static final String STORAGE_FILE = "test.json";
+
     @BeforeEach
     void setUp() {
         // Le controller crée lui-même ses services dans son constructeur
-        controller = new GameController(repository, storage, display, recommender, inputHandler);
+        controller = new GameController(repository, storage, STORAGE_FILE, display, recommender, inputHandler);
     }
 
     @Test

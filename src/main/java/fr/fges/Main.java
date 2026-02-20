@@ -53,8 +53,9 @@ public class Main {
         InputHandler inputHandler = new InputHandler(scanner);
         GameController controller = new GameController(repository, storage, storageFile, display, recommender, inputHandler);
 
-        // 4. Créer et lancer le menu
-        Menu menu = new Menu(controller, inputHandler);
+        // 4. Créer et lancer le menu avec le MenuRegistry
+        boolean isWeekend = controller.isWeekend();
+        Menu menu = new Menu(controller, inputHandler, isWeekend);
         menu.run();
     }
 }
