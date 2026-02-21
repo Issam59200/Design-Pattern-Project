@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.model;
 
 public record BoardGame(
         String title,

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.model;
 
 /**
  * Représente un match entre deux joueurs.

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.model;
 
 /**
  * Représente un joueur dans un tournoi avec ses statistiques.
