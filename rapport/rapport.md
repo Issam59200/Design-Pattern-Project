@@ -1,3 +1,13 @@
+## Rapport de la semaine du 16 février 
+
+Issam :
+
+Premièrement, j'ai supprimé le gros switch/case dans Menu.java en appliquant le pattern Registry. J'ai créé une interface MenuAction et une classe MenuRegistry qui stocke les actions dans une map. Chaque option du menu est devenue sa propre classe (AddGameMenuAction, RemoveGameMenuAction, etc.), ce qui respecte le principe Open/Closed : on peut ajouter une option sans toucher au menu.
+
+Ensuite on a implémenté la feature "tournament" avec le pattern Strategy (ChampionshipStrategy pour le round-robin, KingOfTheHillStrategy pour le roi de la colline). Au départ TournamentAction faisait tout dans une seule méthode, donc j'ai appliqué le SRP en extrayant GameSelector, PlayerCollector, FormatSelector et TournamentRunner. Pareil pour TournamentDisplay que j'ai séparé avec MatchDisplay et RankingDisplay. L'action est enregistrée dynamiquement dans le menu via registerAction(), ce qui prouve que le pattern Registry fonctionne bien.
+
+Et pour les tests j'ai écrit des tests unitaires pour toutes mes classes (actions du menu, tournoi, classes extraites) en utilisant Mockito. On a eu un problème avec Mockito : certains tests bouclaient à l'infini car le mock de readInt() (qui retourne un Optional) renvoyait null quand le prompt ne matchait pas, ce qui empêchait la boucle de validation de sortir. On a résolu ça en centralisant readIntInRange dans InputHandler et en mockant directement cette méthode.
+
 ## Rapport de la semaine du 2 février 
 
 Issam :
