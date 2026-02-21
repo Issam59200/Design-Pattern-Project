@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.tournament;
 
 /**
  * Responsable de la sélection du format de tournoi.

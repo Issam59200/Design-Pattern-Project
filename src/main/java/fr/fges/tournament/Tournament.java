@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.tournament;
 
 import java.util.ArrayList;
 import java.util.Comparator;

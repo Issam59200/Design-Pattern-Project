@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.tournament;
 
 /**
  * Responsable de l'exécution des matchs d'un tournoi.

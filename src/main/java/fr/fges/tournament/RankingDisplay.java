@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.tournament;
 
 import java.util.List;
 

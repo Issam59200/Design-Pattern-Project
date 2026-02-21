@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.tournament;
 
 /**
  * Affiche les informations d'un match.
