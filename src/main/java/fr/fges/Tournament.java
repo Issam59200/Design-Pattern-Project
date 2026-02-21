@@ -16,7 +16,7 @@ public class Tournament {
     private final TournamentStrategy strategy;
     private final Queue<Match> remainingMatches;
     private final List<Match> completedMatches;
-    private int totalMatches;
+    private final int totalMatches;
 
     public Tournament(BoardGame game, List<Player> players, TournamentStrategy strategy) {
         this.game = game;
