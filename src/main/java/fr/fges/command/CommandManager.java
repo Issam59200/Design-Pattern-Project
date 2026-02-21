@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.command;
 
 import java.util.Stack;
 

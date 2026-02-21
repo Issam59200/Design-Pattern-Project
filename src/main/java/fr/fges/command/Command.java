@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.command;
 
 /**
  * Interface Command - Pattern Command pour implémenter Undo/Redo.

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.command;
 
 /**
  * Commande pour retirer un jeu de la collection.

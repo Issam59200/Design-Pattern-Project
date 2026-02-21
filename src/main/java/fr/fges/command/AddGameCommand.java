@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.command;
 
 /**
  * Commande pour ajouter un jeu à la collection.
