@@ -53,9 +53,18 @@ public class Main {
         InputHandler inputHandler = new InputHandler(scanner);
         GameController controller = new GameController(repository, storage, storageFile, display, recommender, inputHandler);
 
-        // 4. Créer et lancer le menu avec le MenuRegistry
+        // 4. Créer les services de tournoi
+        TournamentService tournamentService = new TournamentService(repository);
+        TournamentDisplay tournamentDisplay = new TournamentDisplay();
+
+        // 5. Créer et lancer le menu avec le MenuRegistry
         boolean isWeekend = controller.isWeekend();
         Menu menu = new Menu(controller, inputHandler, isWeekend);
+        
+        // 6. Enregistrer l'action de tournoi dynamiquement
+        TournamentAction tournamentAction = new TournamentAction(tournamentService, tournamentDisplay, inputHandler);
+        menu.registerAction("9", tournamentAction);
+        
         menu.run();
     }
 }
