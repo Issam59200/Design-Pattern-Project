@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.storage;
 
 import java.util.List;
 

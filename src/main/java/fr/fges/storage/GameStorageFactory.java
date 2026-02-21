@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.storage;
 
 /**
  * Factory pour créer le bon DAO de stockage selon l'extension du fichier.
