@@ -39,4 +39,12 @@ public class Menu {
             }
         }
     }
+
+    /**
+     * Enregistre dynamiquement une nouvelle action de menu.
+     * Utilisé pour ajouter des actions optionnelles comme le tournoi.
+     */
+    public void registerAction(String key, MenuAction action) {
+        registry.register(key, action);
+    }
 }

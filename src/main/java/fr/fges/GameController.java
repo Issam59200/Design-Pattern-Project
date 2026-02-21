@@ -11,9 +11,11 @@ public class GameController {
     private final GameManagementService managementService;
     private final GameQueryService queryService;
     private final CommandManager commandManager;
+    private final GameRepository repository;
 
     public GameController(GameRepository repository, GameStorage storage, String storageFile,
         GameDisplay display, GameRecommender recommender, InputHandler inputHandler) {
+        this.repository = repository;
         this.commandManager = new CommandManager();
         this.managementService = new GameManagementService(repository, storage, storageFile, inputHandler, commandManager);
         this.queryService = new GameQueryService(repository, display, recommender, inputHandler);
@@ -66,5 +68,13 @@ public class GameController {
     public void exit() {
         System.out.println("Exiting the application. Goodbye!");
         System.exit(0);
+    }
+
+    /**
+     * Accesseur pour le référentiel de jeux.
+     * Utilisé pour les fonctionnalités comme les tournois.
+     */
+    public GameRepository getRepository() {
+        return repository;
     }
 }
