@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.service;
 
 import java.util.List;
 import java.util.Optional;
