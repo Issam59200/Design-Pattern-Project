@@ -8,6 +8,15 @@ Ensuite on a implémenté la feature "tournament" avec le pattern Strategy (Cham
 
 Et pour les tests j'ai écrit des tests unitaires pour toutes mes classes (actions du menu, tournoi, classes extraites) en utilisant Mockito. On a eu un problème avec Mockito : certains tests bouclaient à l'infini car le mock de readInt() (qui retourne un Optional) renvoyait null quand le prompt ne matchait pas, ce qui empêchait la boucle de validation de sortir. On a résolu ça en centralisant readIntInRange dans InputHandler et en mockant directement cette méthode.
 
+
+Enzo:
+
+Dans la première phase, j'ai refactoré le Storage en introduisant l'interface GameStorage (DAO), les implémentations GameStorageCSV/GameStorageJSON, et la GameStorageFactory, puis j'ai adapté toutes les classes dépendantes (Commands, Services, Controller, Main). 
+
+Pour la phase 2, j'ai implémenté le Tournament Mode : les modèles (Match, Player), le Strategy pattern (ChampionshipStrategy, KingOfTheHillStrategy), la classe Tournament qui gère l'état et le classement, et le TournamentService pour la logique métier pure sans UI. 
+
+Tous les tests unitaires ont été écrits et adaptés à chaque étape (Storage, Factory, Strategies, Tournament, Service). Enfin, une fois tout ceci implémenté j'ai classé mes différentes classes dans des dossiers en fonction des couches (Data, logique métier, ui...) et je me suis assuré de corriger les quelques warning levés pour les différents imports.
+
 ## Rapport de la semaine du 2 février 
 
 Issam :
