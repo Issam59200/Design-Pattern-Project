@@ -8,7 +8,7 @@ import java.util.List;
 import fr.fges.model.BoardGame;
 
 public class GameRepository {
-    private List<BoardGame> games = new ArrayList<>();
+    private final List<BoardGame> games = new ArrayList<>();
 
     public void addGame(BoardGame game) {
         games.add(game);

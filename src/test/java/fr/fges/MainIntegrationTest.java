@@ -1,14 +1,36 @@
 package fr.fges;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import fr.fges.model.BoardGame;
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+import fr.fges.service.GameRecommender;
+import fr.fges.service.TournamentService;
+import fr.fges.storage.GameStorage;
+import fr.fges.tournament.ChampionshipStrategy;
+import fr.fges.tournament.KingOfTheHillStrategy;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentDisplay;
+import fr.fges.tournament.TournamentStrategy;
+import fr.fges.ui.GameController;
+import fr.fges.ui.GameDisplay;
+import fr.fges.ui.InputHandler;
+import fr.fges.ui.Menu;
+import fr.fges.ui.TournamentAction;
 
 /**
  * Test d'intégration pour vérifier que les composants de tournoi

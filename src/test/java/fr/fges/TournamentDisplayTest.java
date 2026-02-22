@@ -1,16 +1,23 @@
 package fr.fges;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import fr.fges.model.BoardGame;
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentDisplay;
 
 /**
  * Tests pour TournamentDisplay (facade).

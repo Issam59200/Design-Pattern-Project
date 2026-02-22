@@ -12,6 +12,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import fr.fges.model.BoardGame;
+import fr.fges.model.Match;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentDisplay;
+import fr.fges.tournament.TournamentRunner;
+import fr.fges.ui.InputHandler;
+
 /**
  * Tests pour TournamentRunner.
  */

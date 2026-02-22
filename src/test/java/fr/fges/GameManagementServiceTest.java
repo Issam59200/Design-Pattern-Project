@@ -1,17 +1,26 @@
 package fr.fges;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.mockito.ArgumentMatchers.any;
+import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import fr.fges.command.AddGameCommand;
+import fr.fges.command.CommandManager;
+import fr.fges.command.RemoveGameCommand;
+import fr.fges.model.BoardGame;
+import fr.fges.service.GameManagementService;
+import fr.fges.storage.GameStorage;
+import fr.fges.ui.InputHandler;
 
 /**
  * Tests unitaires pour GameManagementService.

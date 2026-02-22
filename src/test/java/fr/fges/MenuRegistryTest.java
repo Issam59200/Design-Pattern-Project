@@ -1,13 +1,23 @@
 package fr.fges;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import fr.fges.ui.AddGameMenuAction;
+import fr.fges.ui.GameController;
+import fr.fges.ui.ListAllGamesMenuAction;
+import fr.fges.ui.MenuAction;
+import fr.fges.ui.MenuRegistry;
+import fr.fges.ui.RemoveGameMenuAction;
+import fr.fges.ui.SuggestGamesMenuAction;
 
 /**
  * Tests for MenuRegistry pattern.

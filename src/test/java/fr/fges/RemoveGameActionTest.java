@@ -1,12 +1,16 @@
 package fr.fges;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import fr.fges.ui.GameController;
+import fr.fges.ui.MenuAction;
+import fr.fges.ui.RemoveGameMenuAction;
 
 /**
  * Tests pour RemoveGameMenuAction.

@@ -1,10 +1,18 @@
 package fr.fges;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import fr.fges.tournament.ChampionshipStrategy;
+import fr.fges.tournament.FormatSelector;
+import fr.fges.tournament.KingOfTheHillStrategy;
+import fr.fges.tournament.TournamentStrategy;
+import fr.fges.ui.InputHandler;
 
 /**
  * Tests pour FormatSelector.

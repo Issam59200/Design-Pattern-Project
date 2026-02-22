@@ -8,6 +8,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fr.fges.ui.GameController;
+import fr.fges.ui.InputHandler;
+import fr.fges.ui.Menu;
+
 /**
  * Tests pour le Menu utilisant MenuRegistry.
  * Vérifie que les actions sont correctement enregistrées et exécutées.

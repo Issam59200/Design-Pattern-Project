@@ -6,6 +6,8 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+
+import fr.fges.ui.InputHandler;
 public class InputHandlerTest {
 
     @Test

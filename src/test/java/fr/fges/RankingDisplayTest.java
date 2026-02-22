@@ -14,6 +14,10 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import fr.fges.model.Player;
+import fr.fges.tournament.RankingDisplay;
+import fr.fges.tournament.Tournament;
+
 /**
  * Tests pour RankingDisplay.
  */

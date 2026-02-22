@@ -12,6 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import fr.fges.model.BoardGame;
+import fr.fges.storage.GameStorage;
+import fr.fges.storage.GameStorageJSON;
+
 class GameStorageJSONTest {
 
     private GameStorage jsonStorage;

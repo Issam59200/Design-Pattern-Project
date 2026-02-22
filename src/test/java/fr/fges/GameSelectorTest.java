@@ -12,6 +12,11 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import fr.fges.model.BoardGame;
+import fr.fges.service.TournamentService;
+import fr.fges.tournament.GameSelector;
+import fr.fges.ui.InputHandler;
+
 /**
  * Tests pour GameSelector.
  */

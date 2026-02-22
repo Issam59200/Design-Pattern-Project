@@ -1,14 +1,34 @@
 package fr.fges;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import fr.fges.model.BoardGame;
+import fr.fges.model.Match;
+import fr.fges.service.TournamentService;
+import fr.fges.tournament.ChampionshipStrategy;
+import fr.fges.tournament.KingOfTheHillStrategy;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentDisplay;
+import fr.fges.ui.InputHandler;
+import fr.fges.ui.TournamentAction;
 
 /**
  * Tests pour TournamentAction.

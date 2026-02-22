@@ -6,6 +6,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import fr.fges.service.GameRecommender;
+import fr.fges.storage.GameStorage;
+import fr.fges.ui.GameController;
+import fr.fges.ui.GameDisplay;
+import fr.fges.ui.InputHandler;
+
 /**
  * Test d'intégration léger pour GameController.
  * Les tests détaillés des opérations sont dans :
