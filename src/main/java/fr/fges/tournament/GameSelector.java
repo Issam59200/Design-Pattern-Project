@@ -2,6 +2,10 @@ package fr.fges.tournament;
 
 import java.util.List;
 
+import fr.fges.model.BoardGame;
+import fr.fges.service.TournamentService;
+import fr.fges.ui.InputHandler;
+
 /**
  * Responsable de la sélection d'un jeu pour le tournoi.
  * Respecte le SRP : une seule responsabilité (choisir un jeu).

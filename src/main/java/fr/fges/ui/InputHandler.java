@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class InputHandler {
         String input = scanner.nextLine();
 
         try {
-            return Optional.of(Integer.parseInt(input));
+            return Optional.of(Integer.valueOf(input));
         } catch (NumberFormatException e) {
             return Optional.empty();
         }

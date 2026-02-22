@@ -3,6 +3,18 @@ package fr.fges;
 import java.util.List;
 import java.util.Scanner;
 
+import fr.fges.model.BoardGame;
+import fr.fges.service.GameRecommender;
+import fr.fges.service.TournamentService;
+import fr.fges.storage.GameStorage;
+import fr.fges.storage.GameStorageFactory;
+import fr.fges.tournament.TournamentDisplay;
+import fr.fges.ui.GameController;
+import fr.fges.ui.GameDisplay;
+import fr.fges.ui.InputHandler;
+import fr.fges.ui.Menu;
+import fr.fges.ui.TournamentAction;
+
 public class Main {
     // Méthode pour valider la présence des arguments - facilite les tests
     private static void validateArguments(String[] args) {

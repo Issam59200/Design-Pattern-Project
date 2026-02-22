@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Recommander un jeu en fonction du nombre de joueurs.

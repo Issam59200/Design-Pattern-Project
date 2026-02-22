@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Afficher la liste de tous les jeux.

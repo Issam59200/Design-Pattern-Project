@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import fr.fges.model.BoardGame;
+
 public class GameRepository {
     private List<BoardGame> games = new ArrayList<>();
 

@@ -3,6 +3,9 @@ package fr.fges.tournament;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+
 /**
  * Format Championship (round-robin).
  * Chaque joueur affronte tous les autres exactement une fois.

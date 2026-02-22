@@ -2,6 +2,8 @@ package fr.fges.storage;
 
 import java.util.List;
 
+import fr.fges.model.BoardGame;
+
 /**
  * Interface DAO pour la persistence des jeux.
  * Contrat que chaque implémentation (JSON, CSV) doit respecter.

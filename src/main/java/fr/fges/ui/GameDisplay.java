@@ -1,7 +1,9 @@
-package fr.fges;
+package fr.fges.ui;
 
-import java.util.List;
 import java.util.Comparator;
+import java.util.List;
+
+import fr.fges.model.BoardGame;
 
 public class GameDisplay {
     // Méthode pour formater l'affichage d'un jeu

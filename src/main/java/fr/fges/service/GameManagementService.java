@@ -2,6 +2,15 @@ package fr.fges.service;
 
 import java.util.Optional;
 
+import fr.fges.GameRepository;
+import fr.fges.command.AddGameCommand;
+import fr.fges.command.Command;
+import fr.fges.command.CommandManager;
+import fr.fges.command.RemoveGameCommand;
+import fr.fges.model.BoardGame;
+import fr.fges.storage.GameStorage;
+import fr.fges.ui.InputHandler;
+
 /**
  * Service de gestion des jeux (ajout/suppression).
  * Responsable de la création et suppression des jeux dans la collection.

@@ -2,6 +2,9 @@ package fr.fges.tournament;
 
 import java.util.List;
 
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+
 /**
  * Facade pour l'affichage du tournoi.
  * Délègue à MatchDisplay et RankingDisplay (Facade pattern).

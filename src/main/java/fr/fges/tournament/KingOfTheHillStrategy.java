@@ -3,6 +3,9 @@ package fr.fges.tournament;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+
 /**
  * Format King of the Hill.
  * Le gagnant reste en place, le perdant est remplacé par le joueur suivant.

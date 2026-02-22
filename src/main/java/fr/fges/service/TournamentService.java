@@ -3,6 +3,12 @@ package fr.fges.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import fr.fges.GameRepository;
+import fr.fges.model.BoardGame;
+import fr.fges.model.Player;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentStrategy;
+
 /**
  * Service métier pour les tournois.
  * Responsabilité : filtrage des jeux, validation, création du tournoi.

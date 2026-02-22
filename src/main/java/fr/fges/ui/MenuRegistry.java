@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

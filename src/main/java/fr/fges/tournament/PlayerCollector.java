@@ -3,6 +3,8 @@ package fr.fges.tournament;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.fges.ui.InputHandler;
+
 /**
  * Responsable de la collecte des joueurs pour le tournoi.
  * Respecte le SRP : une seule responsabilité (collecter les noms).

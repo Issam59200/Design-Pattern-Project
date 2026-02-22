@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.fges.model.BoardGame;
+
 /**
  * Gestionnaire de stockage CSV.
  * Responsabilité unique : lire et écrire des jeux au format CSV.

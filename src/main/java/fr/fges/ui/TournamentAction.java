@@ -1,7 +1,17 @@
-package fr.fges;
+package fr.fges.ui;
 
 import java.util.List;
 import java.util.Objects;
+
+import fr.fges.model.BoardGame;
+import fr.fges.service.TournamentService;
+import fr.fges.tournament.FormatSelector;
+import fr.fges.tournament.GameSelector;
+import fr.fges.tournament.PlayerCollector;
+import fr.fges.tournament.Tournament;
+import fr.fges.tournament.TournamentDisplay;
+import fr.fges.tournament.TournamentRunner;
+import fr.fges.tournament.TournamentStrategy;
 
 /**
  * Action de menu pour lancer un tournoi.

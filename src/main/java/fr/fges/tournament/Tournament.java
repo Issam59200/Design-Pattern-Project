@@ -6,6 +6,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import fr.fges.model.BoardGame;
+import fr.fges.model.Match;
+import fr.fges.model.Player;
+
 /**
  * Encapsule l'état d'un tournoi.
  * Gère les joueurs, les matchs, l'enregistrement des résultats et le classement.

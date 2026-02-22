@@ -1,7 +1,14 @@
-package fr.fges;
+package fr.fges.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+
+import fr.fges.GameRepository;
+import fr.fges.command.CommandManager;
+import fr.fges.service.GameManagementService;
+import fr.fges.service.GameQueryService;
+import fr.fges.service.GameRecommender;
+import fr.fges.storage.GameStorage;
 
 /**
  * Contrôleur principal de l'application.

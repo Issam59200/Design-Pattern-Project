@@ -1,5 +1,7 @@
 package fr.fges.tournament;
 
+import fr.fges.ui.InputHandler;
+
 /**
  * Responsable de la sélection du format de tournoi.
  * Utilise le Strategy pattern : retourne la bonne TournamentStrategy.

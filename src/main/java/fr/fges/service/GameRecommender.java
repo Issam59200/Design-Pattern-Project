@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import fr.fges.GameRepository;
+import fr.fges.model.BoardGame;
+
 public class GameRecommender {
     private final GameRepository repository;
     private final Random random;

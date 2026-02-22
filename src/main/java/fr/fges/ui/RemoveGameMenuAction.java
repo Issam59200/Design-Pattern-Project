@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Retirer un jeu de la collection.

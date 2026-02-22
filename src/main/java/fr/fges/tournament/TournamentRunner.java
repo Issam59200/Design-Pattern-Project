@@ -1,5 +1,8 @@
 package fr.fges.tournament;
 
+import fr.fges.model.Match;
+import fr.fges.ui.InputHandler;
+
 /**
  * Responsable de l'exécution des matchs d'un tournoi.
  * Respecte le SRP : ne s'occupe que du déroulement des matchs.

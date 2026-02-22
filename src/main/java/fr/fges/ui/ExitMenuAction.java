@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Quitter l'application.

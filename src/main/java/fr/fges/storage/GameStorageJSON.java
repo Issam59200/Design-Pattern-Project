@@ -8,6 +8,8 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.fges.model.BoardGame;
+
 /**
  * Gestionnaire de stockage JSON.
  * Responsabilité unique : lire et écrire des jeux au format JSON.

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Menu principal de l'application.

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Suggérer une sélection de jeux pour le weekend.

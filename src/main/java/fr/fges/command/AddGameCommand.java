@@ -1,5 +1,9 @@
 package fr.fges.command;
 
+import fr.fges.GameRepository;
+import fr.fges.model.BoardGame;
+import fr.fges.storage.GameStorage;
+
 /**
  * Commande pour ajouter un jeu à la collection.
  * Execute: ajoute le jeu | Undo: retire le jeu.

@@ -2,6 +2,8 @@ package fr.fges.tournament;
 
 import java.util.List;
 
+import fr.fges.model.Player;
+
 /**
  * Affiche les classements, podiums et statistiques des joueurs.
  * Classe extraite de TournamentDisplay (SRP).

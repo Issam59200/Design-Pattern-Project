@@ -1,5 +1,7 @@
 package fr.fges.tournament;
 
+import fr.fges.model.Match;
+
 /**
  * Affiche les informations d'un match.
  * Classe extraite de TournamentDisplay (SRP).

@@ -1,4 +1,4 @@
-package fr.fges;
+package fr.fges.ui;
 
 /**
  * Action: Afficher les jeux compatibles avec un nombre de joueurs.

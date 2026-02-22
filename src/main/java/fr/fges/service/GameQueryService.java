@@ -3,6 +3,11 @@ package fr.fges.service;
 import java.util.List;
 import java.util.Optional;
 
+import fr.fges.GameRepository;
+import fr.fges.model.BoardGame;
+import fr.fges.ui.GameDisplay;
+import fr.fges.ui.InputHandler;
+
 /**
  * Service de consultation des jeux.
  * Responsable des opérations de recherche, recommandation et affichage.
